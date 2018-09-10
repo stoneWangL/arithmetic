@@ -1,0 +1,31 @@
+时间限制：1秒 空间限制：32768K 热度指数：740223
+本题知识点： 字符串
+
+题目描述
+请实现一个函数，将一个字符串中的每个空格替换成“%20”。
+例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
+
+
+
+
+
+
+
+
+
+
+
+
+解题思路：
+//思路
+//1：从前往后插入，这样移动·的次数多不建议
+//2：从后往前插入
+
+
+
+我的答案：
+public class Solution {
+    public String replaceSpace(StringBuffer str) {
+        return str.toString().replaceAll(" ","%20");
+    }
+}
