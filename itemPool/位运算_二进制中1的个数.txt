@@ -17,6 +17,28 @@ public class Solution {
 
 
 
+我的结果：
+public class Solution {
+    public int NumberOf1(int n) {
+        int number = 0;
+        int base = 1;
+        if(n != 0){
+            while(base != 0){
+                if((n & base) != 0)
+                    number++;
+                base = base << 1;
+            }
+        }
+        return number;
+    }
+}
+
+
+
+
+
+
+
 
 
 
