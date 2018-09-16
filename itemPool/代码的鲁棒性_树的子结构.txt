@@ -1,0 +1,73 @@
+时间限制：1秒 空间限制：32768K 热度指数：319767
+ 算法知识视频讲解
+题目描述
+输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
+
+题设：
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    public boolean HasSubtree(TreeNode root1,TreeNode root2) {
+        
+    }
+}
+
+
+
+
+
+我的答案：
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    public boolean HasSubtree(TreeNode root1,TreeNode root2) {
+        boolean result = false;
+        //如果root1，root2都不为空
+        if(root1 != null && root2 != null){
+            //假如root1==root2
+            if(root1.val == root2.val)
+                result = funcOne(root1,root2);
+            //假如找不到，找左子树
+            if(!result)
+                result = HasSubtree(root1.left,root2);
+            //假如找不到，找右子树
+            if(!result)
+                result = HasSubtree(root1.right,root2);
+        }
+        return result;
+        
+    }
+    private static boolean funcOne(TreeNode node1,TreeNode node2){
+        //表示B遍历完毕
+        if(node2 == null)
+            return true;
+        //假如B没有
+        if(node1 == null)
+            return false;
+        if(node1.val != node2.val)
+            return false;
+        return funcOne(node1.left,node2.left) && funcOne(node1.right,node2.right);
+    }
+}
