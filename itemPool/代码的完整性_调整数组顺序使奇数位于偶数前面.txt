@@ -12,3 +12,32 @@ public class Solution {
     }
 }
 
+
+
+
+
+
+
+ÎÒµÄ´ð°¸£º
+public class Solution {
+    public void reOrderArray(int [] array) {
+        int SIZE = array.length;
+        int []array2 = new int[SIZE];
+        int ii=0;
+        for(int i = 0; i < SIZE; i++){
+            if(array[i] % 2 != 0){
+                array2[ii] = array[i];
+                ii++;
+            }
+        }
+        for(int j = 0; j < SIZE; j++){
+            if(array[j] % 2 == 0){
+                array2[ii] = array[j];
+                ii++;
+            }
+        }
+        for(int i = 0; i < array.length; i++){
+            array[i] = array2[i];
+        }
+    }
+}
