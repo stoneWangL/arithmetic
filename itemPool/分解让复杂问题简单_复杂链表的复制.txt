@@ -1,0 +1,87 @@
+时间限制：1秒 空间限制：32768K 热度指数：247601
+本题知识点： 链表
+ 算法知识视频讲解
+题目描述
+输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，
+另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（
+注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）
+
+示例：
+/*
+public class RandomListNode {
+    int label;
+    RandomListNode next = null;
+    RandomListNode random = null;
+
+    RandomListNode(int label) {
+        this.label = label;
+    }
+}
+*/
+public class Solution {
+    public RandomListNode Clone(RandomListNode pHead)
+    {
+        
+    }
+}
+
+
+
+
+
+我的答案：
+/*
+public class RandomListNode {
+    int label;
+    RandomListNode next = null;
+    RandomListNode random = null;
+
+    RandomListNode(int label) {
+        this.label = label;
+    }
+}
+*/
+public class Solution {
+    public RandomListNode Clone(RandomListNode pHead)
+    {
+        if(pHead == null){
+            return null;
+        }
+        RandomListNode currenNode = pHead;
+        //复制A节点的值到A1，然后将A1插入到A和A.next之间
+        while(currenNode != null){
+            RandomListNode cloneNode = new RandomListNode(currenNode.label);
+            RandomListNode nextNode = currenNode.next;
+            cloneNode.next = currenNode.next;
+            currenNode.next = cloneNode;
+            currenNode = nextNode;
+        }
+        
+        //将游标节点指向原节点的头
+        currenNode = pHead;
+        //通过A在A1后面这个性质，A.random.next即为A1.random
+        while(currenNode != null){
+            if(currenNode.random == null)
+                currenNode.next.random = null;
+            else
+                currenNode.next.random = currenNode.random.next;
+            currenNode = currenNode.next.next;
+        }
+        
+        //将游标节点指向原节点的头
+        currenNode = pHead;
+        //新表的表头
+        RandomListNode pCloneHead = pHead.next;
+        //将新旧链表拆开
+        while(currenNode != null){
+            RandomListNode cloneNode = currenNode.next;
+            currenNode.next = cloneNode.next;
+            if(cloneNode.next == null)
+                cloneNode.next = null;
+            else
+                cloneNode.next = cloneNode.next.next;
+            currenNode= currenNode.next;
+        }
+        return pCloneHead;
+    }
+}
