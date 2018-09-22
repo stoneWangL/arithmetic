@@ -5,19 +5,70 @@
 要求不能创建任何新的结点，只能调整树中结点指针的指向。
 
 题设：
-/*
-struct TreeNode {
-	int val;
-	struct TreeNode *left;
-	struct TreeNode *right;
-	TreeNode(int x) :
-			val(x), left(NULL), right(NULL) {
-	}
-};*/
-class Solution {
-public:
-    TreeNode* Convert(TreeNode* pRootOfTree)
-    {
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    public TreeNode Convert(TreeNode pRootOfTree) {
         
     }
-};
+}
+
+
+
+
+我的解答：
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+import java.util.Stack;
+public class Solution {
+    public TreeNode Convert(TreeNode pRootOfTree) {
+        if(pRootOfTree == null)
+            return null;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode p = pRootOfTree;
+        TreeNode pre = null;//pre是指向前面的指针
+        boolean isFirst = true;
+        while(p != null || !stack.isEmpty()){
+            //有比当前节点p大的，就入栈，得到的结果就是栈底的大，栈顶的小
+            while(p != null){
+                stack.push(p);
+                p = p.left;
+            }
+            //没有比当前节点更大的了,然后栈内吐一个出来，这个就是当前最小的，然后p指向该节点
+            p = stack.pop();
+            if(isFirst){
+                pRootOfTree = p;//首次移动需要确定根节点的位置，所以需要判断是否是第一次
+                pre = pRootOfTree;
+                isFirst = false;
+            }else{
+                pre.right = p;
+                p.left = pre;
+                pre = p;
+            }
+            p = p.right;
+        }
+        return pRootOfTree;
+    }
+}
