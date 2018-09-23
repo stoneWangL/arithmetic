@@ -1,0 +1,56 @@
+时间限制：1秒 空间限制：32768K 热度指数：273850
+本题知识点： 字符串
+ 算法知识视频讲解
+题目描述
+输入一个字符串,按字典序打印出该字符串中字符的所有排列。
+例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+输入描述:
+输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。
+
+题设：
+import java.util.ArrayList;
+public class Solution {
+    public ArrayList<String> Permutation(String str) {
+       
+    }
+}
+
+
+
+
+
+
+我的答案：
+import java.util.ArrayList;
+import java.util.*;
+public class Solution {
+    public ArrayList<String> Permutation(String str) {
+        ArrayList<String> list = new ArrayList<>();
+        if(str != null && str.length() > 0){
+            PermutationHelp(list, 0, str.toCharArray());
+            Collections.sort(list);
+        }
+        return list;
+    }
+    
+    public void PermutationHelp(ArrayList<String> list, int i, char [] cs){
+        if (i == cs.length - 1) {
+            String val = String.valueOf(cs);
+            if(!list.contains(val))
+                list.add(val);
+        } else {
+            for(int j = i; j < cs.length; j++){
+                swap(cs, i, j);
+                PermutationHelp(list, i+1, cs);
+                swap(cs, i, j);
+            }
+        }
+    }
+    
+    //交换两个节点的值
+    public void swap(char [] cs, int i, int j){
+        char temp = cs[i];
+        cs[i] = cs[j];
+        cs[j] = temp;
+    }
+}
