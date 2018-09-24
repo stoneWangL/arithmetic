@@ -1,0 +1,59 @@
+时间限制：1秒 空间限制：32768K 热度指数：237896
+本题知识点： 数组
+ 算法知识视频讲解
+题目描述
+数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
+例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，
+超过数组长度的一半，因此输出2。如果不存在则输出0。
+
+题设：
+public class Solution {
+    public int MoreThanHalfNum_Solution(int [] array) {
+        
+    }
+}
+
+
+
+我的答案：
+时间复杂度o(n)
+import java.util.Arrays;
+public class Solution {
+    public int MoreThanHalfNum_Solution(int [] array) {
+        Arrays.sort(array);
+        int count = 0;
+        
+        for(int i = 0; i < array.length; i++){
+            if(array[i] == array[array.length/2]){
+                count++;
+            }
+        }
+        if(count > array.length/2){
+            return array[array.length/2];
+        }else{
+            return 0;
+        }
+    }
+}
+
+
+
+或者：
+利用HashMap的键值对存储功能，将数组的各个值作为键，次数作为值来累加
+import java.util.HashMap;
+public class Solution {
+    public int MoreThanHalfNum_Solution(int [] array) {
+        HashMap<Integer,Integer> hashmap=new HashMap<>();
+        for(int i = 0; i < array.length; i++){
+            Integer tmp = hashmap.get(array[i]);
+            if(tmp == null){
+                hashmap.put(array[i],1);
+            }else{
+                hashmap.put(array[i],tmp+1);
+            }
+            if(hashmap.get(array[i]) > array.length/2)
+                return array[i];
+        }
+        return 0;
+    }
+}
