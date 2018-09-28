@@ -1,0 +1,71 @@
+时间限制：1秒 空间限制：32768K 热度指数：171051
+本题知识点： 数组
+ 算法知识视频讲解
+题目描述
+输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
+例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。
+
+题设：
+import java.util.ArrayList;
+
+public class Solution {
+    public String PrintMinNumber(int [] numbers) {
+
+    }
+}
+
+
+
+
+我的答案：
+
+
+ * 解题思路：
+ 
+* 先将整型数组转换成String数组，然后将String数组排序，最后将排好序的字符串数组拼接出来。
+关键就是制定排序规则。
+ 
+* 排序规则如下：
+ 
+* 若ab > ba 则 a > b，
+ 
+* 若ab < ba 则 a < b，
+ 
+* 若ab = ba 则 a = b；
+ 
+* 解释说明：
+ 
+* 比如 "3" < "31"但是 "331" > "313"，所以要将二者拼接起来进行比较
+
+Comparator接口，两个对象要使用compareTo方法比较大小，就必须实现Comparator接口的compare方法，
+比如String就实现了这个方法，所以可以直接使用compareTo进行比较。sort(List，Comparator)：
+根据指定的 Comparator 产生的顺序对 List 集合元素进行排序。
+参考：https://blog.csdn.net/tt_twilight/article/details/70859804
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Arrays;
+
+public class Solution {
+    public String PrintMinNumber(int [] numbers) {
+        if(numbers == null || numbers.length == 0) return "";
+        int len = numbers.length;
+        String[] str = new String[len];
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < len; i++){
+            str[i] = String.valueOf(numbers[i]);
+        }
+        Arrays.sort(str, new Comparator<String>(){
+            @Override
+            public int compare(String s1, String s2){
+                String c1 = s1 + s2;
+                String c2 = s2 + s1;
+                return c1.compareTo(c2);
+            }
+        });
+        for(int i = 0; i < len; i++){
+            sb.append(str[i]);
+        }
+        return sb.toString();
+    }
+}
