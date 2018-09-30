@@ -1,0 +1,37 @@
+时间限制：1秒 空间限制：32768K 热度指数：195226
+本题知识点： 字符串
+ 算法知识视频讲解
+题目描述
+在一个字符串(0<=字符串长度<=10000，全部由字母组成)中找到第一个只出现一次的字符,
+并返回它的位置, 如果没有则返回 -1（需要区分大小写）.
+
+题设：
+public class Solution {
+    public int FirstNotRepeatingChar(String str) {
+        return 0;
+    }
+}
+
+
+
+
+
+
+我的答案：
+分析：
+'z' = 122;
+'Z' = 90;
+
+public class Solution {
+    public int FirstNotRepeatingChar(String str) {
+        char[] c = str.toCharArray();
+        int[] a = new int['z' + 1];
+        for(char d : c)
+            a[(int)d]++;
+        for(int i = 0; i < c.length; i++){
+            if(a[(int)c[i]] == 1)
+                return i;
+        }
+        return -1;
+    }
+}
