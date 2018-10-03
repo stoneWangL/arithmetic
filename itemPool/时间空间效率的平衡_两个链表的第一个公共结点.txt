@@ -1,0 +1,63 @@
+时间限制：1秒 空间限制：32768K 热度指数：148888
+本题知识点： 链表
+ 算法知识视频讲解
+题目描述
+输入两个链表，找出它们的第一个公共结点。
+
+题设：
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Solution {
+    public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+ 
+    }
+}
+
+
+
+
+
+
+
+
+
+
+我的答案：
+
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+import java.util.HashMap;
+public class Solution {
+    public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+        ListNode list1 = pHead1;
+        ListNode list2 = pHead2;
+        
+        HashMap<ListNode, Integer> hashMap = new HashMap<>();
+        while(list1 != null){
+            hashMap.put(list1, null);
+            list1 = list1.next;
+        }
+        
+        while(list2 != null){
+            if(hashMap.containsKey(list2))
+                return list2;
+            list2 = list2.next;
+        }
+        
+        return null;
+    }
+}
