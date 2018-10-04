@@ -1,0 +1,38 @@
+时间限制：1秒 空间限制：32768K 热度指数：137619
+ 算法知识视频讲解
+题目描述
+输入一棵二叉树，判断该二叉树是否是平衡二叉树。
+
+题设：
+public class Solution {
+    public boolean IsBalanced_Solution(TreeNode root) {
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+我的答案：
+public class Solution {
+    private boolean isBlance = true;
+    public boolean IsBalanced_Solution(TreeNode root) {
+        getDepth(root);
+        return isBlance;
+    }
+    public int getDepth(TreeNode root){
+        if(root == null)
+            return 0;
+        int left = getDepth(root.left);
+        int right = getDepth(root.right);
+        if(left - right > 1 || right - left > 1){
+            isBlance = false;
+        }
+        return left > right ? left + 1 : right + 1;
+    }
+}
