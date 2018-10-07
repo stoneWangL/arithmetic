@@ -1,0 +1,67 @@
+时间限制：1秒 空间限制：32768K 热度指数：106042
+ 算法知识视频讲解
+题目描述
+请实现一个函数，用来判断一颗二叉树是不是对称的。
+注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。
+
+题设：
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    boolean isSymmetrical(TreeNode pRoot)
+    {
+        
+    }
+}
+
+我的答案：
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+/*思路：首先根节点以及其左右子树，左子树的左子树和右子树的右子树相同
+* 左子树的右子树和右子树的左子树相同即可，采用递归
+* 非递归也可，采用栈或队列存取各级子树根节点
+*/
+public class Solution {
+    boolean isSymmetrical(TreeNode pRoot)
+    {
+        if(pRoot == null)
+            return true;
+        return nowRoot(pRoot.left, pRoot.right);
+    }
+    
+    public boolean nowRoot(TreeNode left, TreeNode right){
+        //如果right等于null则得到true，刚好left也为null，则对称，返回true
+        if(left == null)
+            return right == null;
+        //如果left不为空，则进入这里
+        //如果left不为空，而right为空了，说明不对称，返回false
+        if(right == null)
+            return false;
+        //left和right都不为空
+        if(left.val != right.val)
+            return false;
+        return nowRoot(left.left, right.right) && nowRoot(left.right, right.left);
+    }
+}
