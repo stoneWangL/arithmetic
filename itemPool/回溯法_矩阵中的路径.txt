@@ -1,0 +1,61 @@
+时间限制：1秒 空间限制：32768K 热度指数：119780
+ 算法知识视频讲解
+题目描述
+请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。
+路径可以从矩阵中的任意一个格子开始，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。
+如果一条路径经过了矩阵中的某一个格子，则之后不能再次进入这个格子。 
+例如 a b c e s f c s a d e e 这样的3 X 4 矩阵中包含一条字符串"bcced"的路径，但是矩阵中不包含"abcb"路径，
+因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入该格子。
+
+题设：
+public class Solution {
+    public boolean hasPath(char[] matrix, int rows, int cols, char[] str)
+    {
+    
+    }
+
+
+}
+
+我的答案：
+public class Solution {
+    public boolean hasPath(char[] matrix, int rows, int cols, char[] str)
+    {
+        boolean[] flag = new boolean[matrix.length];//标志位，初始化为false
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                if(thisPath(matrix, i, j, rows, cols, str, flag, 0))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean thisPath(char[] matrix, int i, int j, int rows, int cols, char[] str, boolean[] flag, int k){
+        int index = i * cols + j;//一行有4列，所以1行的数目是行数1*每行的列数4
+        //递归结束条件：查找越界；当前需要验证的值不是str[]对应的值；当前验证的格子之前已经走过了
+        if(i < 0 || j < 0 || i >= rows || j >= cols || matrix[index] != str[k] || flag[index] == true){
+            return false;
+        }
+        
+        //递归结束，回溯返回结果至上一级，如果之前一直没有false，这里验证一下是否验证到str[]的末尾
+        if(k == str.length - 1)
+            return true;
+        
+        //如果当前格子是需要找的格子，又没到str[]末尾，那就递归上下左右继续找
+        flag[index] = true;//设置该格子已走过
+        if(
+            thisPath(matrix, i - 1, j, rows, cols, str, flag, k+1) ||
+            thisPath(matrix, i + 1, j, rows, cols, str, flag, k+1) ||
+            thisPath(matrix, i, j - 1, rows, cols, str, flag, k+1) ||
+            thisPath(matrix, i, j + 1, rows, cols, str, flag, k+1)
+        ){
+            return true;//如果找到一个返回true,继续递归
+        }
+        
+        //能走到这说明前面都没true结束,而是k是需要的格子，但是k格子的四周没有下一个格子
+        flag[index] = false;//回溯一格需要消除之前已走的标记
+        return false;//不满足，回溯到上一级递归
+    }
+
+}
