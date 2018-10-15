@@ -1,0 +1,27 @@
+时间限制：1秒 空间限制：32768K 热度指数：128422
+ 算法知识视频讲解
+题目描述
+求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+
+题设：
+public class Solution {
+    public int Sum_Solution(int n) {
+        
+    }
+}
+
+
+
+
+
+
+
+
+我的答案：
+import java.util.*;
+public class Solution {
+    public int Sum_Solution(int n) {
+        int m = (int)(n + Math.pow(n, 2)) >> 1;
+        return m;
+    }
+}
