@@ -1,0 +1,78 @@
+时间限制：1秒 空间限制：32768K 热度指数：128840
+本题知识点： 字符串
+ 算法知识视频讲解
+题目描述
+请实现一个函数用来匹配包括'.'和'*'的正则表达式。模式中的字符'.'表示任意一个字符，
+而'*'表示它前面的字符可以出现任意次（包含0次）。 在本题中，匹配是指字符串的所有字符匹配整个模式。
+例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但是与"aa.a"和"ab*a"均不匹配
+
+题设：
+public class Solution {
+    public boolean match(char[] str, char[] pattern)
+    {
+        
+    }
+}
+
+
+
+
+我的答案：
+/*
+该问题，可能性多，分支多，适合递归
+主要分为2大类情况
+1.pattern第二个字符为*，细分为2小类
+----1.pattern第一个字符和str第一个字符不同，则pattern后移2位，str不动；
+----2.pattern第一个字符和str第一个字符相同，细分为3小类
+--------1.则pattern后移2位，str后移1位
+--------2.则pattern不动，str后移1位（因为*的前面字符可以出现多次，实际上，这种情况是都消耗了一位的）
+--------3.则pattern后移2位，str不动（这种情况相当于，只有pattern消耗）
+
+2.pattern第二个字符不为*
+----如果，pattern第1个字符==str的第1个字符，则继续比较，pattern后移1位，str后移1位
+----如果pattern第一个字符！=str的第1个字符，返回false
+
+注意：遇到需要比较下一个字符的情况，需要检查数组是否越界。
+*/
+public class Solution {
+    public boolean match(char[] str, char[] pattern)
+    {
+        if(str == null && pattern == null)
+            return true;
+        if(str == null || pattern == null)
+            return false;
+        
+        int strIndex = 0, patIndex = 0;
+        return Fction(str, strIndex, pattern, patIndex);
+    }
+    
+    //比较函数
+    private boolean Fction(char[] str, int strIndex, char[] pattern, int patIndex){
+        //先写递归结束条件,标志位都同时到达数组的末尾+1,即遍历完成
+        if(strIndex == str.length && patIndex == pattern.length)
+            return true;
+        //pattern先到尾，匹配失败
+        if (strIndex != str.length && patIndex == pattern.length) {
+            return false;
+        }
+        //pattern第二个字符为*，细分为2小类
+        if(patIndex + 1 < pattern.length && pattern[patIndex + 1] == '*'){
+            if(strIndex != str.length && 
+                (str[strIndex] == pattern[patIndex] || '.' == pattern[patIndex])){
+                //要细分为3总情况递归了
+                return (Fction(str, strIndex + 1, pattern, patIndex) ||
+                       Fction(str, strIndex, pattern, patIndex + 2) ||
+                       Fction(str, strIndex + 1, pattern, patIndex + 2));
+            }else{
+                return Fction(str, strIndex, pattern, patIndex + 2);
+            }
+        }
+        //pattern第二个字符不为*
+        if(patIndex < pattern.length && strIndex < str.length &&
+            (str[strIndex] == pattern[patIndex] || '.' == pattern[patIndex])){
+            return Fction(str, strIndex + 1, pattern, patIndex + 1);
+        }
+        //都不满足，有可能就是越界了
+        return false;
+    }
+}
