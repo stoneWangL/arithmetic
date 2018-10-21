@@ -1,0 +1,63 @@
+时间限制：1秒 空间限制：32768K 热度指数：164260
+本题知识点： 数组
+ 算法知识视频讲解
+题目描述
+在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。
+示例1
+输入
+复制
+输出
+复制
+
+题设：
+public class Solution {
+    // Parameters:
+    //    numbers:     an array of integers
+    //    length:      the length of array numbers
+    //    duplication: (Output) the duplicated number in the array number,length of duplication array is 1,so using duplication[0] = ? in implementation;
+    //                  Here duplication like pointor in C/C++, duplication[0] equal *duplication in C/C++
+    //    这里要特别注意~返回任意重复的一个，赋值duplication[0]
+    // Return value:       true if the input is valid, and there are some duplications in the array number
+    //                     otherwise false
+    public boolean duplicate(int numbers[],int length,int [] duplication) {
+    
+    }
+}
+
+
+我的答案：
+/*
+初始化的数组默认值为0，找到对应的+1，然后遍历找第一个对应值为2的就是重复的
+*/
+public class Solution {
+    // Parameters:
+    //    numbers:     an array of integers
+    //    length:      the length of array numbers
+    //    duplication: (Output) the duplicated number in the array number,length of duplication array is 1,so using duplication[0] = ? in implementation;
+    //                  Here duplication like pointor in C/C++, duplication[0] equal *duplication in C/C++
+    //    这里要特别注意~返回任意重复的一个，赋值duplication[0]
+    // Return value:       true if the input is valid, and there are some duplications in the array number
+    //                     otherwise false
+    public boolean duplicate(int numbers[],int length,int [] duplication) {
+        //这个用例有一个，输入[],对应输出应该为false, -1。所以这样写
+        if(length == 0){
+            duplication[0] = -1;
+            return false;
+        }
+        int[] arr = new int[length];
+        //遍历一遍，存储数字出现的次数
+        for(int i : numbers){
+            arr[i]++;
+        }
+        
+        //遍历记录次数的数组，找到第一个重复的数字，即大于等于2的次数
+        for(int j = 0; j < length; j++){
+            if(arr[j] > 1){
+                duplication[0] = j;
+                return true;
+            }
+        }
+        
+        return false;
+    }
+}
