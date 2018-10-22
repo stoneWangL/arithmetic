@@ -1,0 +1,80 @@
+题目描述
+将一个字符串转换成一个整数(实现Integer.valueOf(string)的功能，但是string不符合数字要求时返回0)，
+要求不能使用字符串转换整数的库函数。 数值为0或者字符串不是一个合法的数值则返回0。
+输入描述:
+输入一个字符串,包括数字字母符号,可以为空
+输出描述:
+如果是合法的数值表达则返回该数字，否则返回0
+示例1
+输入
+复制
++2147483647
+    1a33
+输出
+复制
+2147483647
+    0
+
+题设：
+public class Solution {
+    public int StrToInt(String str) {
+        
+    }
+}
+
+
+我的答案：
+public class Solution {
+    public int StrToInt(String str) {
+        int size = str.length(), i = 0, result = 0;
+        //先用正则匹配，过滤掉不符合数字要求的，返回0
+        if(!str.matches("[+-]?[0-9]+"))
+            return result;
+        //能走到这里，说明都是符合数字要求的
+        
+        char[] cha = new char[size];
+        cha = str.toCharArray();//将String转化为char数组
+        //如果第一位是有符号的，则i=1，等一下就从第二位（有数字的位开始）
+        if(cha[0] == '+' || cha[0] == '-')
+            i = 1;
+        //从有数字的地方开始，乘10累加
+        for(; i < size; i++){
+            switch(cha[i]){
+                case '0':
+                    result = result * 10 + 0;
+                    break;
+                case '1':
+                    result = result * 10 + 1;
+                    break;
+                case '2':
+                    result = result * 10 + 2;
+                    break;
+                case '3':
+                    result = result * 10 + 3;
+                    break;
+                case '4':
+                    result = result * 10 + 4;
+                    break;
+                case '5':
+                    result = result * 10 + 5;
+                    break;
+                case '6':
+                    result = result * 10 + 6;
+                    break;
+                case '7':
+                    result = result * 10 + 7;
+                    break;
+                case '8':
+                    result = result * 10 + 8;
+                    break;
+                case '9':
+                    result = result * 10 + 0;
+                    break;
+            }
+        }
+        //判断符号
+        if(cha[0] == '-')
+            result *= -1;
+        return result;
+    }
+}
