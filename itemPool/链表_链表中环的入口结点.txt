@@ -1,0 +1,54 @@
+时间限制：1秒 空间限制：32768K 热度指数：130367
+本题知识点： 链表
+ 算法知识视频讲解
+题目描述
+给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。
+
+题设：
+/*
+ public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+*/
+public class Solution {
+
+    public ListNode EntryNodeOfLoop(ListNode pHead)
+    {
+        
+    }
+}
+
+
+我的答案：
+//采用修改原数据的方式
+/*
+ public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+*/
+public class Solution {
+
+    public ListNode EntryNodeOfLoop(ListNode pHead)
+    {
+        if(pHead == null || pHead.next == null)
+            return null;
+        ListNode pre = pHead;
+        ListNode preNext = pre.next;
+        while(preNext != null){
+            pre.next = null;
+            pre = preNext;
+            preNext = pre.next;
+        }
+        return pre;
+    }
+}
