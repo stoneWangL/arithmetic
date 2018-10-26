@@ -1,0 +1,87 @@
+时间限制：1秒 空间限制：32768K 热度指数：100560
+ 算法知识视频讲解
+题目描述
+从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。
+
+题设：
+import java.util.ArrayList;
+
+
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+    
+    }
+    
+}
+
+
+我的答案：
+import java.util.ArrayList;
+import java.util.LinkedList;
+/*采用树的层次遍历
+层次遍历的步骤是：
+
+1.对于不为空的结点，先把该结点加入到队列中
+
+2.从队中拿出结点，如果该结点的左右结点不为空，就分别把左右结点加入到队列中
+
+3.重复以上操作直到队列为空
+*/
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+        //多层节点值
+        ArrayList<ArrayList<Integer>> twoList = new ArrayList<ArrayList<Integer>>();
+        if(pRoot == null)
+            return twoList;
+        //使用队列来保存节点，实现二叉树的层次遍历
+        LinkedList<TreeNode> list = new LinkedList<TreeNode>();
+        //单一一层节点值
+        ArrayList<Integer> oneList = new ArrayList<Integer>();
+        list.add(pRoot);
+        //start和end分别表示每层的开始和结束的位置，用此来区分层
+        int start = 0, end = 1;
+        while(!list.isEmpty()){
+            TreeNode tnode = list.poll();
+            start++;//队列抛出一个节点，start向后移动一位
+            oneList.add(tnode.val);
+            if(tnode.left != null)
+                list.add(tnode.left);
+            if(tnode.right != null)
+                list.add(tnode.right);
+            if(start == end){
+                //说明这一层结束了，上一层的最后一个节点出队列，新的一层刚好全部入队列
+                end = list.size();//获取新的一层的节点数目
+                start = 0;
+                twoList.add(oneList);
+                oneList = new ArrayList<Integer>();//新建一个层的ArrayList
+            }
+        }
+        return twoList;
+    }
+}
