@@ -1,0 +1,87 @@
+时间限制：1秒 空间限制：32768K 热度指数：225133
+本题知识点： 链表
+ 算法知识视频讲解
+题目描述
+在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。
+ 例如，链表1->2->3->3->4->4->5 处理后为 1->2->5
+
+题设：
+/*
+ public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+*/
+public class Solution {
+    public ListNode deleteDuplication(ListNode pHead)
+    {
+
+    }
+}
+
+
+我的答案：
+import java.util.*;
+/*
+大致思路，
+1.先遍历一遍此链表。遍历的同时，使用HashMap（key为节点值，value为该节点值出现的次数）统计链表各结点的值和数目。
+2.然后从头结点开始，判断是否为空，为空返回头结点，不为空继续下面的判断。
+如果结点的值出现过2次及以上，则将该结点删除，然后继续下一个结点。重复第二步
+*/
+/*
+ public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+*/
+public class Solution {
+    public ListNode deleteDuplication(ListNode pHead)
+    {
+        if(pHead == null)
+            return pHead;
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        ListNode p = pHead, pre = null;//p代表当前结点，pre代表p的上一个结点
+        int va = 0;//va代表当前结点的值
+
+        //先遍历结点一遍，测量结点值出现次数
+        while(p != null){
+            va = p.val;
+            //对当前结点的值进行判断，设置该结点值出现的次数，保存在map中
+            if(map.containsKey(va))
+                map.put(va, map.get(va) + 1);
+            else
+                map.put(va, 1);
+            //结点后移一位
+            p = p.next;
+        }
+        
+        //从头结点开始，删除链表中重复的结点
+        p = pHead;
+        pre = null;
+        while(p != null){
+            va = p.val;
+            if(map.get(va) > 1){
+                if(pre == null){
+                    p = p.next;//说明p为头结点
+                    pHead = p;
+                }else{
+                    p = p.next;
+                    pre.next = p;
+                }
+            }else{
+                pre = p;
+                p = p.next;
+            }
+        }
+        
+        return pHead;
+    }
+}
