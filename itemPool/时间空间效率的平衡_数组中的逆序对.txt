@@ -28,3 +28,102 @@ public class Solution {
         
     }
 }
+
+我的答案：
+答案不对，先提交吧
+/*
+思路1：
+常规思路，遍历思想，一个一个比，时间复杂度O(n^2)
+这种思路超时
+public class Solution {
+    public int InversePairs(int [] array) {
+        int count = 0;//逆序对个数
+        for(int i = 0; i < array.length; i++){
+            for(int j = i + 1; j < array.length; j++){
+                if(array[i] > array[j])
+                    count++;
+            }
+        }
+        return (int)(count % 1000000007);
+    }
+}
+思路2
+归并排序，时间复杂度nlog 2^n
+
+*/
+public class Solution {
+    int count = 0;
+    private int[] arrg;//全局的目标数组
+    public int InversePairs(int [] array) {
+        if(array == null || array.length == 0)
+            return 0;
+        arrg = new int[array.length];
+        mergesort(array);
+        return count%1000000007;
+    }
+    /*
+    函数功能：归并排序算法
+    返回值空
+    */
+    void mergesort(int[] array){
+        int len = 1;//起始有序段长度为1
+        while(len < array.length){//有序段的长度小于待排序元素的个数，归并继续
+            mergepass(array, len);//一趟归并，结果在arrg中,没有修改原始数据
+            len = 2*len;
+        }
+    }
+    /*
+    函数功能：一趟归并算法，将arrs中长度为len的连续有序段使用merge()函数归并为长度为2*len的有序段存入arrg中
+    函数参数：数组arrs和arrg，int型变量len为arrs中有序段的长度
+    函数返回值：空
+    */
+    void mergepass(int[] array, int len){
+        int i = 0, j, n;
+        n = array.length;
+        //将以i为起点，长度为len的相邻两个有序段依次进行归并
+        while(i <= n - 2*len){
+            merge(array, i, i + len - 1, i + 2*len -1);//一次归并
+            i = i + 2*len;//设置下一个 一次归并 的起始位置
+        }
+        //对剩下的1个长度为len，另一个不足len，终点为n-1的两个有序段归并
+        if(i + len < n )
+            merge(array, i, i + len - 1, n - 1);
+        //对剩下的1个长度不超过len，终点为n的有序段进行处理
+        else
+            for(j = i; j <= n - 1; j++)
+                arrg[j] = array[j];
+            
+    }
+    
+    /*
+    函数功能：一次归并算法，将数组array[u..m]和array[m+1..v]合并成有序段arrg[u..v]
+    函数参数：int型变量u,m和v
+    函数返回值：空
+    */
+    void merge(int[] array, int u, int m, int v){
+        int i, j, k, t;
+        i = u;//从第一段的起始位置开始，一直到最终位置m
+        j = m + 1;//从第二段的起始位置开始，一直到最终位置v
+        k = u;//表示的是目标arrg的起始位置
+        while(i <= m && j <= v){
+            //将两段有序元素中元素值较小的元素依次放入目标数组arrg中
+            if(array[i] <= array[j]){
+                arrg[k] = array[i];
+                i++;
+            }else{
+                arrg[k] = array[j];
+                j++;
+                count++;//一旦前面的数大于后面的数，逆序对数目加一
+            }
+            k++;//目标数组的下标
+        }
+        //将第一段剩余元素放入目标数组arrg中(如果第一段全部复制到了目标数组，i = m +1)
+        if(i <= m)
+            for(t = i; t <= m; t++)
+                arrg[k + t - i] = array[t];
+        //将第二段剩余元素放入目标数组arrg中
+        else
+            for(t = j; t <= v; t++)
+                arrg[k + t - j] = array[t];
+    }
+}
